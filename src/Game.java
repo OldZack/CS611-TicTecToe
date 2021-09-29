@@ -1,5 +1,8 @@
 public abstract class Game {
-
+    /*
+    This class is an abstract class that defines the basic elements for a board game,
+    including game's name, game board and player teams.
+    */
     protected String gameName;
     protected Board gameBoard;
     protected Team[] teams;

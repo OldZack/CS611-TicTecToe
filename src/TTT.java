@@ -1,8 +1,11 @@
 import java.util.Scanner;
 
 public class TTT extends Game{
-
-    private int streak;
+    /*
+    This class defines a game called Tic Tac Toe, inherited from class Game.
+    Function of each method is explained above it.
+    */
+    private int streak;         // Required number of symbols that could form a winning streak.
     private final Scanner slot = new Scanner(System.in);
 
     TTT(){
@@ -20,6 +23,9 @@ public class TTT extends Game{
         }
     }
 
+    /*
+    Print the main menu which can generate a new game, open setting menu, print scoreboard or quit the game.
+    */
     @Override
     public void main_menu() {
 
@@ -57,18 +63,22 @@ public class TTT extends Game{
         }
         else if (s == 3){
             this.print_score();
-            this.main_menu();
         }
         else {
             MainGame.startup_menu();
         }
     }
 
+    /*
+    Generate a new game, users would interact with the game until its finished.
+    */
     @Override
     public void new_game(){
+        // Let the first team to go first.
         Team currentTeam = this.teams[0];
+        // Let symbol X to go first.
         String symbol = "X";
-        int s = 0;
+        int s = 0;      // Position of the cell that user picks.
         int size = this.gameBoard.get_size();
         this.gameBoard.print_board();
         System.out.println(currentTeam.get_curr_player_name() +" please choose your slot (by entering the number displayed on your slot): ");
@@ -88,6 +98,7 @@ public class TTT extends Game{
                     continue;
                 }
             }
+            // If the cell is not been modified, change its symbol to the user-defined one.
             if (this.gameBoard.get_value(s).equals(String.valueOf(s))){
                 this.gameBoard.set_value(s, symbol);
             }
@@ -98,12 +109,17 @@ public class TTT extends Game{
             loop += 1;
             this.gameBoard.print_board();
             if (loop >= 2*streak-1){
+                /*
+                When there's enough loops to have a winner, check every time when a new move is made.
+                if the move generates winning streak, the current player wins.
+                */
                 if (this.gameBoard.check_streak(streak, s)){
                     System.out.println(currentTeam.get_curr_player_name() + " has won! GG!");
                     currentTeam.add_score();
                     break;
                 }
             }
+            // If the board is packed then there is a tie.
             if (loop == size){
                 System.out.println("It's a draw! Everyone wins!");
                 break;
@@ -119,12 +135,17 @@ public class TTT extends Game{
             System.out.println(currentTeam.get_curr_player_name() + " please choose your slot:");
         }
         this.gameBoard.clean_board();
+        // Let the next player in each team to play the next game.
         for (Team team : teams) {
             team.change_order();
         }
         this.main_menu();
     }
 
+    /*
+    Generate the setting menu which can let user change the size of the board
+    as well as the number of players in each team.
+    */
     public void setting_menu(){
         System.out.println(".╔══════════════╗.");
         System.out.println(".‖. Tic Tac Toe .‖.");
@@ -151,49 +172,10 @@ public class TTT extends Game{
         }
 
         if (s == 1){
-            System.out.println("Enter the length of the board (Default: 3, Maximum: 15. The winning rule would change as the board length increases, maximum: 5 in a row ) :");
-            while (true) {
-                try {
-                    String str = slot.nextLine();
-                    s = Integer.parseInt(str);
-                } catch (NumberFormatException e) {
-                    System.out.println("The input is not a number. Please re-enter the length number:");
-                    continue;
-                }
-                if (s >= 3 && s <= 15) {
-                    this.gameBoard.change_board(s);
-                    if (s <= 5){
-                        streak = s;
-                    }
-                    else{
-                        streak = 5;
-                    }
-                    this.setting_menu();
-                    break;
-                }
-                System.out.println("The input number exceeds the maximum capacity. Please re-enter the number:");
-            }
-
+            this.set_board_size();
         }
         else if(s == 2){
-            System.out.println("Enter the number of players in each team (Default:1, Maximum: 20. Players in each team get to play by order, e.g. first game player1 vs play2, second game player3 vs player4, etc):");
-            while (true) {
-                try {
-                    String str = slot.nextLine();
-                    s = Integer.parseInt(str);
-                } catch (NumberFormatException e) {
-                    System.out.println("The input is not a number. Please re-enter the size number:");
-                    continue;
-                }
-                if (s >= 1 && s <= 20) {
-                    for (int i = 0; i < teams.length; i++){
-                        this.teams[i].change_team_size(s, i+1);
-                    }
-                    this.setting_menu();
-                    break;
-                }
-                System.out.println("The input size is too large. Please re-enter the number:");
-            }
+            this.set_team_size();
         }
         else
         {
@@ -201,6 +183,63 @@ public class TTT extends Game{
         }
     }
 
+    /*
+    Changes the size of the board, the winning condition also changes according to it.
+    */
+    public void set_board_size(){
+        System.out.println("Enter the length of the board (Default: 3, Maximum: 15. The winning rule would change as the board length increases, maximum: 5 in a row ) :");
+        int s;
+        while (true) {
+            try {
+                String str = slot.nextLine();
+                s = Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                System.out.println("The input is not a number. Please re-enter the length number:");
+                continue;
+            }
+            if (s >= 3 && s <= 15) {
+                this.gameBoard.change_board(s);
+                if (s <= 5){
+                    streak = s;
+                }
+                else{
+                    streak = 5;
+                }
+                this.setting_menu();
+                break;
+            }
+            System.out.println("The input number exceeds the capacity. Please re-enter the number:");
+        }
+    }
+
+    /*
+    Changes the number of players in each team.
+    */
+    public void set_team_size(){
+        System.out.println("Enter the number of players in each team (Default:1, Maximum: 20. Players in each team get to play by order, e.g. first game will be player1 vs player2, second game wil be player3 vs player4, etc):");
+        int s;
+        while (true) {
+            try {
+                String str = slot.nextLine();
+                s = Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                System.out.println("The input is not a number. Please re-enter the size number:");
+                continue;
+            }
+            if (s >= 1 && s <= 20) {
+                for (int i = 0; i < teams.length; i++){
+                    this.teams[i].change_team_size(s, i+1);
+                }
+                this.setting_menu();
+                break;
+            }
+            System.out.println("The input size is too large. Please re-enter the number:");
+        }
+    }
+
+    /*
+    Print the scoreboard of each team, user can choose to keep playing or quit the game.
+    */
     public void print_score(){
         System.out.println("╔─────────────╗");
         System.out.println("│ Score Board │");

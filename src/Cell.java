@@ -1,18 +1,23 @@
 public class Cell {
-    private String value;
+    /*
+    This class defines a cell that represents a single grid on game board,
+    each cell has one symbol that either represent its position (shown to users) or
+    the symbol user puts on it.
+    */
+    private Marker symbol;
 
     public Cell(){
-        value = "";
+        symbol = new Marker();
     }
     public Cell(String v){
-        this.value = v;
+        symbol = new Marker(v);
     }
 
     public String get_value(){
-        return this.value;
+        return this.symbol.get_value();
     }
 
     public void set_value(String v){
-        this.value = v;
+        this.symbol.set_value(v);
     }
 }

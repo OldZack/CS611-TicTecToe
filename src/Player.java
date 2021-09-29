@@ -1,5 +1,7 @@
 public class Player {
-
+    /*
+    This class defines a player variable who has a name and its personal score.
+    */
     private final String name;
     private int  score;
 

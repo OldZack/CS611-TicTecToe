@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
 public class MainGame {
-
+    /*
+    This is the main class, which let users pick the game they want to play.
+    */
     public static void startup_menu(){
         Scanner slot = new Scanner(System.in);
 
@@ -31,12 +33,16 @@ public class MainGame {
 
         if (s == 0){
             System.out.println("Thanks for playing!");
+            return;
         }
         if (s == 1){
             Game ttt = new TTT();
             ttt.main_menu();
         }
-        //Board new
+        if (s == 2){
+            Game oac = new OAC();
+            oac.main_menu();
+        }
 
     }
 
