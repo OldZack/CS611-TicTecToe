@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class MainGame {
 
-    public static void main(String[] args){
+    public static void startup_menu(){
         Scanner slot = new Scanner(System.in);
 
         System.out.println("┏☆━━━━━━━━━━━━━━━━━━━━━━━━━━━━☆┓");
@@ -12,8 +12,9 @@ public class MainGame {
         System.out.println("1. TicTacToe");
         System.out.println("2. Order and Chaos");
         System.out.println("More games on the way...");
+        System.out.println("0. Quit Game");
 
-        int s = 0;
+        int s;
         while (true){
             try {
                 String str = slot.nextLine();
@@ -22,15 +23,24 @@ public class MainGame {
                 System.out.println("The input is not a number. Please re-enter the game number:");
                 continue;
             }
-            if (s == 1 || s == 2){
+            if (s == 1 || s == 2 || s == 0){
                 break;
             }
             System.out.println("The input number exceeds the number of games we offer. Please re-enter your game number:");
         }
 
+        if (s == 0){
+            System.out.println("Thanks for playing!");
+        }
         if (s == 1){
             Game ttt = new TTT();
+            ttt.main_menu();
         }
         //Board new
+
+    }
+
+    public static void main(String[] args){
+        MainGame.startup_menu();
     }
 }

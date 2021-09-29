@@ -35,33 +35,17 @@ public class OTTT {
     }
 
     public static void check_status(){
-        String streak = new String();
+        String streak = "";
         for (int i = 0; i < 8; i++){
-            switch(i){
-                case 0:
-                    streak = layout[0] + layout[1] + layout[2];
-                    break;
-                case 1:
-                    streak = layout[3] + layout[4] + layout[5];
-                    break;
-                case 2:
-                    streak = layout[6] + layout[7] + layout[8];
-                    break;
-                case 3:
-                    streak = layout[0] + layout[3] + layout[6];
-                    break;
-                case 4:
-                    streak = layout[1] + layout[4] + layout[7];
-                    break;
-                case 5:
-                    streak = layout[2] + layout[5] + layout[8];
-                    break;
-                case 6:
-                    streak = layout[0] + layout[4] + layout[8];
-                    break;
-                case 7:
-                    streak = layout[2] + layout[4] + layout[6];
-                    break;
+            switch (i) {
+                case 0 -> streak = layout[0] + layout[1] + layout[2];
+                case 1 -> streak = layout[3] + layout[4] + layout[5];
+                case 2 -> streak = layout[6] + layout[7] + layout[8];
+                case 3 -> streak = layout[0] + layout[3] + layout[6];
+                case 4 -> streak = layout[1] + layout[4] + layout[7];
+                case 5 -> streak = layout[2] + layout[5] + layout[8];
+                case 6 -> streak = layout[0] + layout[4] + layout[8];
+                case 7 -> streak = layout[2] + layout[4] + layout[6];
             }
             if (streak.equals("XXX")){
                 winner = "X";
