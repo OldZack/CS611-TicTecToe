@@ -14,5 +14,11 @@ public class Cell {
         this.col = c;
     }
 
+    public String get_value(){
+        return this.value;
+    }
 
+    public void set_value(String v){
+        this.value = v;
+    }
 }

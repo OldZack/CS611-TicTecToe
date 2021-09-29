@@ -1,7 +1,7 @@
 public abstract class Game {
 
-    String gameName;
-    Board gameBoard;
+    protected String gameName;
+    protected Board gameBoard;
 
     Game(){
         gameName = null;
@@ -13,7 +13,6 @@ public abstract class Game {
         gameBoard = new Board(n);
     }
 
-    abstract public void print_board();
     abstract public void check_winner();
 
 }

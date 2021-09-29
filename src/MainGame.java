@@ -29,7 +29,7 @@ public class MainGame {
         }
 
         if (s == 1){
-            a
+            Game ttt = new TTT();
         }
         //Board new
     }
